@@ -1,0 +1,37 @@
+{
+    "__gui_label__": "Metadata",
+    "django_form_module_function": {
+        "get_image_exif": {
+            "__function__": "get_image_exif",
+            "__async__": false,
+            "__return__": "text",
+            "filename": {
+                "__type__": "file",
+                "label_desc": "filename",
+                "placeholder": "filename",
+                "required": true
+            },
+            "__pool_it_get_image_exif__": {
+                "__type__": "checkbox",
+                "label_desc": "Pool the execution to the pool list",
+                "selected": false
+            }
+        },
+        "get_pdf_exif": {
+            "__function__": "get_pdf_exif",
+            "__async__": false,
+            "__return__": "text",
+            "pdf_file": {
+                "__type__": "file",
+                "label_desc": "pdf_file",
+                "placeholder": "pdf_file",
+                "required": true
+            },
+            "__pool_it_get_pdf_exif__": {
+                "__type__": "checkbox",
+                "label_desc": "Pool the execution to the pool list",
+                "selected": false
+            }
+        }
+    }
+}

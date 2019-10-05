@@ -1,0 +1,91 @@
+{
+    "__gui_label__": "Scan for hosts",
+    "django_form_main_function": {
+        "__function__": "getConnectedDevices",
+        "ip": {
+            "__type__": "text",
+            "label_desc": "Enter an IP range to scan",
+            "required": true
+        },
+        "close": {
+            "__type__": "button",
+            "value": "Close"
+        },
+        "submit": {
+            "__id__": "getConnectedDevices",
+            "__type__": "submit",
+            "value": "Scan",
+            "loading_text": "Scanning..."
+        }
+    },
+    "django_form_module_function": {
+        "getConnectedDevices": {
+            "__function__": "getConnectedDevices",
+            "__async__": false,
+            "__return__": "text",
+            "ip": {
+                "__type__": "text",
+                "placeholder": "0.0.0.0",
+                "value": "",
+                "label_desc": "Search IP",
+                "required": true
+            },
+            "shodanKeyString": {
+                "__type__": "text",
+                "placeholder": "abcdef0123456789",
+                "value": "",
+                "label_desc": "Shodan API Key"
+            }
+        },
+        "getDevicePorts": {
+            "__function__": "getDevicePorts",
+            "__async__": false,
+            "__return__": "text",
+            "ip": {
+                "__type__": "text",
+                "label_desc": "ip",
+                "placeholder": "ip",
+                "required": true
+            },
+            "tcp": {
+                "__type__": "text",
+                "label_desc": "tcp",
+                "placeholder": "tcp",
+                "value": true
+            },
+            "udp": {
+                "__type__": "text",
+                "label_desc": "udp",
+                "placeholder": "udp",
+                "value": false
+            },
+            "__pool_it_getDevicePorts__": {
+                "__type__": "checkbox",
+                "label_desc": "Pool the execution to the pool list",
+                "selected": false
+            }
+        },
+        "hasDevicePortOpened": {
+            "__function__": "hasDevicePortOpened",
+            "__async__": false,
+            "__return__": "text",
+            "ip": {
+                "__type__": "text",
+                "label_desc": "ip",
+                "placeholder": "ip",
+                "required": true
+            },
+            "port": {
+                "__type__": "text",
+                "label_desc": "port",
+                "placeholder": "port",
+                "required": true
+            },
+            "__pool_it_hasDevicePortOpened__": {
+                "__type__": "checkbox",
+                "label_desc": "Pool the execution to the pool list",
+                "selected": false
+            }
+        }
+    }
+}

@@ -1,0 +1,138 @@
+{
+    "__gui_label__": "Shodan",
+    "django_form_main_function": {
+        "__function__": "getIPListfromServices",
+        "service_name": {
+            "__type__": "text",
+            "placeholder": "apache",
+            "value": "",
+            "label_desc": "Search query",
+            "required": true
+        },
+        "shodanKeyString": {
+            "__type__": "text",
+            "placeholder": "abcdef0123456789",
+            "value": "",
+            "label_desc": "Shodan API Key"
+        },
+        "close": {
+            "__type__": "button",
+            "value": "Close"
+        },
+        "submit": {
+            "__id__": "getIPListfromServices",
+            "__type__": "submit",
+            "__className__": "btn btn-primary",
+            "value": "Search",
+            "loading_text": "Searching..."
+        }
+    },
+    "django_form_module_function": {
+        "getIPListfromServices": {
+            "__function__": "getIPListfromServices",
+            "__async__": false,
+            "__return__": "text",
+            "service_name": {
+                "__type__": "text",
+                "placeholder": "apache",
+                "value": "",
+                "label_desc": "Search query",
+                "required": true
+            },
+            "shodanKeyString": {
+                "__type__": "text",
+                "placeholder": "abcdef0123456789",
+                "value": "",
+                "label_desc": "Shodan API Key"
+            }
+        },
+        "search_host": {
+            "__function__": "search_host",
+            "__async__": false,
+            "__return__": "text",
+            "service_ip": {
+                "__type__": "text",
+                "placeholder": "8.8.8.8",
+                "value": "",
+                "label_desc": "Search for ip info",
+                "required": true
+            }
+        },
+        "getSSLCerts": {
+            "__function__": "getSSLCerts",
+            "__async__": false,
+            "__return__": "text",
+            "ip": {
+                "__type__": "text",
+                "label_desc": "ip",
+                "placeholder": "ip",
+                "required": true
+            },
+            "__pool_it_getSSLCerts__": {
+                "__type__": "checkbox",
+                "label_desc": "Pool the execution to the pool list",
+                "selected": false
+            }
+        },
+        "queryShodan": {
+            "__function__": "queryShodan",
+            "__async__": false,
+            "__return__": "text",
+            "category": {
+                "__type__": "text",
+                "label_desc": "category",
+                "placeholder": "category",
+                "value": ""
+            },
+            "osintDays": {
+                "__type__": "text",
+                "label_desc": "osintDays",
+                "placeholder": "osintDays",
+                "value": 100
+            },
+            "__pool_it_queryShodan__": {
+                "__type__": "checkbox",
+                "label_desc": "Pool the execution to the pool list",
+                "selected": false
+            }
+        },
+        "searchFromConfig": {
+            "__function__": "searchFromConfig",
+            "__async__": false,
+            "__return__": "text",
+            "search": {
+                "__type__": "text",
+                "label_desc": "search",
+                "placeholder": "search",
+                "value": ""
+            },
+            "keyword": {
+                "__type__": "text",
+                "label_desc": "keyword",
+                "placeholder": "keyword",
+                "value": ""
+            },
+            "__pool_it_searchFromConfig__": {
+                "__type__": "checkbox",
+                "label_desc": "Pool the execution to the pool list",
+                "selected": false
+            }
+        },
+        "setApi": {
+            "__function__": "setApi",
+            "__async__": false,
+            "__return__": "",
+            "shodanKeyString": {
+                "__type__": "text",
+                "label_desc": "shodanKeyString",
+                "placeholder": "shodanKeyString",
+                "value": null
+            },
+            "__pool_it_setApi__": {
+                "__type__": "checkbox",
+                "label_desc": "Pool the execution to the pool list",
+                "selected": false
+            }
+        }
+    }
+}

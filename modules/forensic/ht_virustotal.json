@@ -1,0 +1,40 @@
+{
+    "__gui_label__": "Virus Total",
+    "_comment": "Rename templates if have to use: (remove underscore) 'django_form_main_function' and 'django_form_module_function'",
+    "django_form_main_function": {
+        "__function__": "isBadFile",
+        "filename": {
+            "__type__": "file",
+            "label_desc": "Select a file to test if is a bad file",
+            "required": true
+        }
+    },
+    "django_form_module_function": {
+        "isBadFile": {
+            "__function__": "isBadFile",
+            "__async__": false,
+            "__return__": "text",
+            "filename": {
+                "__type__": "file",
+                "label_desc": "Select a file to test if is a bad file",
+                "required": true
+            }
+        },
+        "isBadFileHash": {
+            "__function__": "isBadFileHash",
+            "__async__": false,
+            "__return__": "text",
+            "fileHash": {
+                "__type__": "file",
+                "label_desc": "fileHash",
+                "placeholder": "fileHash",
+                "required": true
+            },
+            "__pool_it_isBadFileHash__": {
+                "__type__": "checkbox",
+                "label_desc": "Pool the execution to the pool list",
+                "selected": false
+            }
+        }
+    }
+}
