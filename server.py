@@ -1,30 +1,154 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_file, request
+import os 
+from os import listdir
+from os.path import isfile, join
+import hackingtools as ht
 
 app = Flask(__name__)
+
+directory = 'modules'
+categories = [x[0] for x in os.walk(directory)]
+modules = [[x[0] for x in os.walk(os.path.join(directory, cat))] for cat in categories]
+
+this_dir = os.path.dirname(os.path.abspath(__file__))
+
+blacklist_extensions = [".pyc"]
+blacklist_directories = ["__"]
+ignore_files = ["ht_flask.py"]
+ignore_folders = ["templates", "core", "build", "dist", "hackingtools", "gui"]
+
+zipper = ht.getModule('ht_unzip')
+
+def __listDirectory__(directory, files=False, exclude_pattern_starts_with=None):
+    """
+    Devuelve las carpetas contenidas en el directorio indicado. Si se quieren listar los 
+    ficheros se deberá indicar el argumento files=True. En el caso de querer excluir ficheros o carpetas
+    se indicará en el argumento exclude_pattern_starts_with con el comienzo de los mismos.
+    """
+    try:
+        mypath = os.path.join(this_dir, directory)
+        data = ''
+
+        if files:
+            data = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+        else:
+            data = [f for f in listdir(mypath) if not isfile(join(mypath, f))]
+        
+        if blacklist_extensions:
+            new_data = []
+            for d in data:
+                has_extension = False
+                for black_ext in blacklist_extensions:
+                    if black_ext in d:
+                        has_extension = True
+                if not has_extension:
+                    new_data.append(d)
+            data = new_data
+
+        if exclude_pattern_starts_with: 
+            new_data = []
+            for d in data:
+                if not d.startswith(exclude_pattern_starts_with):
+                    new_data.append(d)
+            data = new_data
+
+        if blacklist_directories:
+            new_data = []
+            for d in data:
+                for direc in blacklist_directories:
+                    if not direc in d:
+                        new_data.append(d)
+            data = new_data
+
+        if ignore_folders:
+            new_data = []
+            for d in data:
+                exists = False
+                for direc in ignore_folders:
+                    if direc in d:
+                        exists = True
+                if not exists:
+                    new_data.append(d)
+            data = new_data
+        
+        if files and ignore_files:
+            new_data = []
+            for d in data:
+                for file_ign in ignore_files:
+                    if not file_ign in d:
+                        new_data.append(d)
+            data = new_data
+
+        return data
+    except:
+        return []
 
 @app.route("/")
 def home():
     return jsonify({'status': 'OK'})
     
+@app.route("/categories/")
+def getCategories():
+    try:
+        return jsonify({'status':  'OK', 'data': __listDirectory__(join(this_dir, directory))})
+    except Exception as e:
+        return jsonify({'status':  'FAIL', 'data': 'Not exists'})
+
 @app.route("/modules/")
 def getModulesNames():
-    return jsonify({'status': 'OK'})
+    modules = []
+    for cat in __listDirectory__(join(this_dir, directory)):
+        for module in __listDirectory__(join(this_dir, directory, cat)):
+            modules.append(module)
+    return jsonify({'status': 'OK', 'data': modules})
 
-@app.route("/module/<moduleName>")
-def getModuleFull(moduleName):
-    return jsonify({'status': moduleName})
+def getCategoryByModuleName(moduleName):
+    for cat in __listDirectory__(join(this_dir, directory)):
+        for module in __listDirectory__(join(this_dir, directory, cat)):
+            if module in moduleName:
+                return cat
+    return None
 
-@app.route("/module/files/<moduleName>")
-def getModuleFiles(moduleName):
-    return jsonify({'status': moduleName})
+@app.route("/category/<category>")
+def getModulesNamesByCategory(category):
+    try:
+        return jsonify({'status': 'OK', 'data': __listDirectory__(join(this_dir, directory, category))})
+    except Exception as e:
+        return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
-@app.route("/module/conf/<moduleName>")
-def getModuleConf(moduleName):
-    return jsonify({'status': moduleName})
+@app.route("/module/download/<moduleName>")
+def downloadModuleFull(moduleName):
+    try:
+        return send_file(zipper.zipDirectory(new_folder_name=join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName.replace('ht_',''))), as_attachment=True)
+    except Exception as e:
+        return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
-@app.route("/module/view/<moduleName>")
-def getModuleDjangoView(moduleName):
-    return jsonify({'status': moduleName})
+@app.route("/module/download/files/<moduleName>")
+def downloadModuleFiles(moduleName):
+    try:
+        return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName, '{m}.zip'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
+    except Exception as e:
+        return jsonify({'status':  'FAIL', 'data': 'Not exists'})
+
+@app.route("/module/download/config/<moduleName>")
+def downloadModuleConf(moduleName):
+    try:
+        return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName, 'ht_{m}.json'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
+    except Exception as e:
+        return jsonify({'status':  'FAIL', 'data': 'Not exists'})
+
+@app.route("/module/download/views/<moduleName>")
+def downloadModuleDjangoView(moduleName):
+    try:
+        return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName, 'views_ht_{m}.py'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
+    except Exception as e:
+        return jsonify({'status':  'FAIL', 'data': 'Not exists'})
+
+@app.route("/new/module/upload/<category>/<moduleName>")
+def newModuleUpload(category, moduleName):
+    if 'module' not in request.files:
+        return jsonify({'status': 'FAIL', 'data': 'No file given'})
+    zipper.extractFile(zipPathName=request.files['module'])
 
 if __name__ == "__main__":
     app.run(debug=True)
