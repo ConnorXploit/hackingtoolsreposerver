@@ -1,0 +1,72 @@
+{
+    "ht_objectdetection" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "1",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_crypter" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "4",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_bruteforce" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "3",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_unzip" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "1",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_rsa" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "1",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_metadata" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "1",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_virustotal" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "1",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_rat" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "1",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_instagram" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "1",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_nmap" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "2",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_shodan" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "3",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_twitter" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "1",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_spider" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "1",
+        "hackingtools-version-working" : "1.0.2"
+    },
+    "ht_sqlinjection" : {
+        "last-update" : "06-10-2019 19:08:42",
+        "updates" : "1",
+        "hackingtools-version-working" : "1.0.2"
+    }
+}

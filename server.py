@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, send_file, request
-import os 
+import os, json
 from os import listdir
 from os.path import isfile, join
 import hackingtools as ht
@@ -18,6 +18,10 @@ ignore_files = ["ht_flask.py"]
 ignore_folders = ["templates", "core", "build", "dist", "hackingtools", "gui"]
 
 zipper = ht.getModule('ht_unzip')
+
+def loadDataLogModules():
+    with open(os.path.join(os.path.dirname(__file__) , 'data_log.json')) as json_data_file:
+        return json.load(json_data_file)
 
 def __listDirectory__(directory, files=False, exclude_pattern_starts_with=None):
     """
@@ -83,18 +87,25 @@ def __listDirectory__(directory, files=False, exclude_pattern_starts_with=None):
     except:
         return []
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def home():
-    return jsonify({'status': 'OK'})
+    return jsonify({'status': 'OK', 'data': [str(rule) for rule in app.url_map.iter_rules()]})
     
-@app.route("/categories/")
+@app.route("/changes/", methods=['GET', 'POST'])
+def getChanges():
+    try:
+        return jsonify({'status': 'OK', 'data': loadDataLogModules()})
+    except Exception as e:
+        return jsonify({'status':  'FAIL', 'data': 'Cant load data'})
+
+@app.route("/categories/", methods=['GET', 'POST'])
 def getCategories():
     try:
         return jsonify({'status':  'OK', 'data': __listDirectory__(join(this_dir, directory))})
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
-@app.route("/modules/")
+@app.route("/modules/", methods=['GET', 'POST'])
 def getModulesNames():
     modules = []
     for cat in __listDirectory__(join(this_dir, directory)):
@@ -109,46 +120,46 @@ def getCategoryByModuleName(moduleName):
                 return cat
     return None
 
-@app.route("/category/<category>")
+@app.route("/category/<category>", methods=['GET', 'POST'])
 def getModulesNamesByCategory(category):
     try:
         return jsonify({'status': 'OK', 'data': __listDirectory__(join(this_dir, directory, category))})
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
-@app.route("/module/download/<moduleName>")
+@app.route("/module/download/<moduleName>", methods=['GET', 'POST'])
 def downloadModuleFull(moduleName):
     try:
         return send_file(zipper.zipDirectory(new_folder_name=join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName.replace('ht_',''))), as_attachment=True)
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
-@app.route("/module/download/files/<moduleName>")
+@app.route("/module/download/files/<moduleName>", methods=['GET', 'POST'])
 def downloadModuleFiles(moduleName):
     try:
         return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName, '{m}.zip'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
-@app.route("/module/download/config/<moduleName>")
+@app.route("/module/download/config/<moduleName>", methods=['GET', 'POST'])
 def downloadModuleConf(moduleName):
     try:
         return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName, 'ht_{m}.json'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
-@app.route("/module/download/views/<moduleName>")
+@app.route("/module/download/views/<moduleName>", methods=['GET', 'POST'])
 def downloadModuleDjangoView(moduleName):
     try:
         return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName, 'views_ht_{m}.py'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
-@app.route("/new/module/upload/<category>/<moduleName>")
+@app.route("/new/module/upload/<category>/<moduleName>", methods=['GET', 'POST'])
 def newModuleUpload(category, moduleName):
     if 'module' not in request.files:
         return jsonify({'status': 'FAIL', 'data': 'No file given'})
-    zipper.extractFile(zipPathName=request.files['module'])
+    print(zipper.extractFile(zipPathName=request.files['module']))
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5555, debug=True)
