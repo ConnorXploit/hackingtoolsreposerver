@@ -3,7 +3,6 @@ from flask import Flask, jsonify, send_file, request
 import os, json
 from os import listdir
 from os.path import isfile, join
-import hackingtools as ht
 
 app = Flask(__name__)
 
@@ -18,7 +17,18 @@ blacklist_directories = ["__"]
 ignore_files = ["ht_flask.py"]
 ignore_folders = ["templates", "core", "build", "dist", "hackingtools", "gui"]
 
-zipper = ht.getModule('ht_unzip')
+def extractFile(self, zipPathName, password=None):
+    #ZipFile only works with 7z with ZypCrypto encryption for setting the password
+    try:
+        with ZipFile(zipPathName) as zf:
+            return zf.extractall(password) if password else zf.extractall()
+    except Exception as e:
+        Logger.printMessage(message="extractFile", description=str(e), is_error=True)
+        return None
+
+def zipDirectory(self, new_folder_name):
+    # Creates a Zip File from a directory
+    return shutil.make_archive(new_folder_name, 'zip', new_folder_name)
 
 def loadDataLogModules():
     with open(os.path.join(os.path.dirname(__file__) , 'data_log.json')) as json_data_file:
@@ -131,7 +141,7 @@ def getModulesNamesByCategory(category):
 @app.route("/module/download/<moduleName>", methods=['GET', 'POST'])
 def downloadModuleFull(moduleName):
     try:
-        return send_file(zipper.zipDirectory(new_folder_name=join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName.replace('ht_',''))), as_attachment=True)
+        return send_file(zipDirectory(new_folder_name=join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName.replace('ht_',''))), as_attachment=True)
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
@@ -160,7 +170,7 @@ def downloadModuleDjangoView(moduleName):
 def newModuleUpload(category, moduleName):
     if 'module' not in request.files:
         return jsonify({'status': 'FAIL', 'data': 'No file given'})
-    print(zipper.extractFile(zipPathName=request.files['module']))
+    print(extractFile(zipPathName=request.files['module']))
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80, debug=True)
