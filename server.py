@@ -1,3 +1,4 @@
+#!/usr/bin/python
 from flask import Flask, jsonify, send_file, request
 import os, json
 from os import listdir
