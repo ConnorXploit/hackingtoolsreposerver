@@ -124,12 +124,23 @@ def getModulesNames():
             modules.append(module)
     return jsonify({'status': 'OK', 'data': modules})
 
-def getCategoryByModuleName(moduleName):
-    for cat in __listDirectory__(join(this_dir, directory)):
-        for module in __listDirectory__(join(this_dir, directory, cat)):
-            if module in moduleName:
-                return cat
-    return None
+@app.route("/category/<moduleName>", methods=['GET', 'POST'])
+def getCategoryByModuleName(moduleName, is_rest_api_call=True):
+    if not is_rest_api_call:
+        for cat in __listDirectory__(join(this_dir, directory)):
+            for module in __listDirectory__(join(this_dir, directory, cat)):
+                if module in moduleName:
+                    return cat
+        return None
+    else:
+        try:
+            for cat in __listDirectory__(join(this_dir, directory)):
+                for module in __listDirectory__(join(this_dir, directory, cat)):
+                    if module in moduleName:
+                        return jsonify({'status': 'OK', 'data': cat})
+            return jsonify({'status':  'FAIL', 'data': 'Not exists'})
+        except Exception as e:
+            return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
 @app.route("/category/<category>", methods=['GET', 'POST'])
 def getModulesNamesByCategory(category):
@@ -141,28 +152,28 @@ def getModulesNamesByCategory(category):
 @app.route("/module/download/<moduleName>", methods=['GET', 'POST'])
 def downloadModuleFull(moduleName):
     try:
-        return send_file(zipDirectory(new_folder_name=join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName.replace('ht_',''))), as_attachment=True)
+        return send_file(zipDirectory(new_folder_name=join(this_dir, directory, getCategoryByModuleName(moduleName, False), moduleName.replace('ht_',''))), as_attachment=True)
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
 @app.route("/module/download/files/<moduleName>", methods=['GET', 'POST'])
 def downloadModuleFiles(moduleName):
     try:
-        return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName, '{m}.zip'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
+        return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName, False), moduleName, '{m}.zip'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
 @app.route("/module/download/config/<moduleName>", methods=['GET', 'POST'])
 def downloadModuleConf(moduleName):
     try:
-        return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName, 'ht_{m}.json'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
+        return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName, False), moduleName, 'ht_{m}.json'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
 @app.route("/module/download/views/<moduleName>", methods=['GET', 'POST'])
 def downloadModuleDjangoView(moduleName):
     try:
-        return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName), moduleName, 'views_ht_{m}.py'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
+        return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName, False), moduleName, 'views_ht_{m}.py'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
