@@ -17,11 +17,11 @@ blacklist_directories = ["__"]
 ignore_files = ["ht_flask.py"]
 ignore_folders = ["templates", "core", "build", "dist", "hackingtools", "gui"]
 
-def extractFile(self, zipPathName, password=None):
+def extractFile(self, zipPathName, extractPath=None, password=None):
     #ZipFile only works with 7z with ZypCrypto encryption for setting the password
     try:
         with ZipFile(zipPathName) as zf:
-            return zf.extractall(password) if password else zf.extractall()
+            return zf.extractall(password) if password else zf.extractall(extractPath) if extractPath else zf.extractFile()
     except Exception as e:
         Logger.printMessage(message="extractFile", description=str(e), is_error=True)
         return None
@@ -177,11 +177,13 @@ def downloadModuleDjangoView(moduleName):
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
-@app.route("/new/module/upload/<category>/<moduleName>", methods=['GET', 'POST'])
-def newModuleUpload(category, moduleName):
-    if 'module' not in request.files:
+@app.route("/new/module/upload/<category>", methods=['GET', 'POST'])
+def newModuleUpload(category):
+    if len(request.files) == 0:
         return jsonify({'status': 'FAIL', 'data': 'No file given'})
-    print(extractFile(zipPathName=request.files['module']))
+    for f in request.files:
+        extractFile(zipPathName=request.files[f], extractPath=os.path.join(this_dir, 'modules', category))
+    return jsonify({'status': 'OK', 'data': 'Upload successfully'})
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
