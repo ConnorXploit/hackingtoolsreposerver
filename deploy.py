@@ -170,13 +170,6 @@ def downloadModuleConf(moduleName):
     except Exception as e:
         return jsonify({'status':  'FAIL', 'data': 'Not exists'})
 
-@app.route("/module/download/views/<moduleName>", methods=['GET', 'POST'])
-def downloadModuleDjangoView(moduleName):
-    try:
-        return send_file(join(this_dir, directory, getCategoryByModuleName(moduleName, False), moduleName, 'views_ht_{m}.py'.format(m=moduleName.replace('ht_',''))), as_attachment=True)
-    except Exception as e:
-        return jsonify({'status':  'FAIL', 'data': 'Not exists'})
-
 @app.route("/new/module/upload/<category>", methods=['GET', 'POST'])
 def newModuleUpload(category):
     if len(request.files) == 0:
