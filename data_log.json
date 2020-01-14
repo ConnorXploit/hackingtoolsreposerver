@@ -24,6 +24,11 @@
         "updates" : "6",
         "hackingtools-version-working" : "2.5.1"
     },
+    "ht_bannergrabber" : {
+        "last-update" : "14-01-2020 22:55:17",
+        "updates" : "1",
+        "hackingtools-version-working" : "2.5.1"
+    },
     "ht_metadata" : {
         "last-update" : "14-01-2020 22:55:17",
         "updates" : "1",
