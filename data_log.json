@@ -1,72 +1,72 @@
 {
     "ht_objectdetection" : {
-        "last-update" : "06-10-2019 19:08:42",
+        "last-update" : "14-01-2020 22:55:17",
         "updates" : "1",
-        "hackingtools-version-working" : "1.0.2"
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_crypter" : {
-        "last-update" : "06-10-2019 19:08:42",
+        "last-update" : "14-01-2020 22:55:17",
         "updates" : "4",
-        "hackingtools-version-working" : "1.0.2"
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_bruteforce" : {
-        "last-update" : "06-10-2019 19:08:42",
+        "last-update" : "14-01-2020 22:55:17",
         "updates" : "3",
-        "hackingtools-version-working" : "1.0.2"
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_unzip" : {
-        "last-update" : "06-10-2019 19:08:42",
+        "last-update" : "14-01-2020 22:55:17",
         "updates" : "1",
-        "hackingtools-version-working" : "1.0.2"
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_rsa" : {
-        "last-update" : "06-10-2019 19:08:42",
-        "updates" : "1",
-        "hackingtools-version-working" : "1.0.2"
+        "last-update" : "14-01-2020 22:55:17",
+        "updates" : "6",
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_metadata" : {
-        "last-update" : "06-10-2019 19:08:42",
+        "last-update" : "14-01-2020 22:55:17",
         "updates" : "1",
-        "hackingtools-version-working" : "1.0.2"
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_virustotal" : {
-        "last-update" : "06-10-2019 19:08:42",
+        "last-update" : "14-01-2020 22:55:17",
         "updates" : "1",
-        "hackingtools-version-working" : "1.0.2"
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_rat" : {
-        "last-update" : "06-10-2019 19:08:42",
+        "last-update" : "14-01-2020 22:55:17",
         "updates" : "1",
-        "hackingtools-version-working" : "1.0.2"
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_instagram" : {
-        "last-update" : "06-10-2019 19:08:42",
+        "last-update" : "14-01-2020 22:55:17",
         "updates" : "1",
-        "hackingtools-version-working" : "1.0.2"
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_nmap" : {
-        "last-update" : "06-10-2019 19:08:42",
-        "updates" : "2",
-        "hackingtools-version-working" : "1.0.2"
+        "last-update" : "14-01-2020 22:55:17",
+        "updates" : "5",
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_shodan" : {
-        "last-update" : "06-10-2019 19:08:42",
-        "updates" : "3",
-        "hackingtools-version-working" : "1.0.2"
+        "last-update" : "14-01-2020 22:55:17",
+        "updates" : "5",
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_twitter" : {
-        "last-update" : "06-10-2019 19:08:42",
+        "last-update" : "14-01-2020 22:55:17",
         "updates" : "1",
-        "hackingtools-version-working" : "1.0.2"
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_spider" : {
-        "last-update" : "06-10-2019 19:08:42",
+        "last-update" : "14-01-2020 22:55:17",
         "updates" : "1",
-        "hackingtools-version-working" : "1.0.2"
+        "hackingtools-version-working" : "2.5.1"
     },
     "ht_sqlinjection" : {
-        "last-update" : "06-10-2019 19:08:42",
+        "last-update" : "14-01-2020 22:55:17",
         "updates" : "1",
-        "hackingtools-version-working" : "1.0.2"
+        "hackingtools-version-working" : "2.5.1"
     }
 }

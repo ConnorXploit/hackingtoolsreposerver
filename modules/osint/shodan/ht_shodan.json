@@ -32,30 +32,44 @@
             "__function__": "getIPListfromServices",
             "__async__": false,
             "__return__": "text",
-            "service_name": {
+            "serviceName": {
                 "__type__": "text",
-                "placeholder": "apache",
-                "value": "",
-                "label_desc": "Search query",
+                "label_desc": "serviceName",
+                "placeholder": "serviceName",
                 "required": true
             },
-            "shodanKeyString": {
+            "shodan_api": {
                 "__type__": "text",
-                "placeholder": "abcdef0123456789",
-                "value": "",
-                "label_desc": "Shodan API Key"
+                "label_desc": "shodan_api",
+                "placeholder": "shodan_api",
+                "value": null
+            },
+            "__pool_it_getIPListfromServices__": {
+                "__type__": "checkbox",
+                "label_desc": "Pool the execution to the pool list",
+                "selected": false
             }
         },
         "search_host": {
             "__function__": "search_host",
             "__async__": false,
             "__return__": "text",
-            "service_ip": {
+            "ip": {
                 "__type__": "text",
-                "placeholder": "8.8.8.8",
-                "value": "",
-                "label_desc": "Search for ip info",
+                "label_desc": "ip",
+                "placeholder": "ip",
                 "required": true
+            },
+            "shodan_api": {
+                "__type__": "text",
+                "label_desc": "shodan_api",
+                "placeholder": "shodan_api",
+                "value": null
+            },
+            "__pool_it_search_host__": {
+                "__type__": "checkbox",
+                "label_desc": "Pool the execution to the pool list",
+                "selected": false
             }
         },
         "getSSLCerts": {
@@ -67,6 +81,12 @@
                 "label_desc": "ip",
                 "placeholder": "ip",
                 "required": true
+            },
+            "shodan_api": {
+                "__type__": "text",
+                "label_desc": "shodan_api",
+                "placeholder": "shodan_api",
+                "value": null
             },
             "__pool_it_getSSLCerts__": {
                 "__type__": "checkbox",
@@ -85,10 +105,16 @@
                 "value": ""
             },
             "osintDays": {
-                "__type__": "text",
+                "__type__": "number",
                 "label_desc": "osintDays",
                 "placeholder": "osintDays",
                 "value": 100
+            },
+            "shodan_api": {
+                "__type__": "text",
+                "label_desc": "shodan_api",
+                "placeholder": "shodan_api",
+                "value": null
             },
             "__pool_it_queryShodan__": {
                 "__type__": "checkbox",
@@ -112,6 +138,12 @@
                 "placeholder": "keyword",
                 "value": ""
             },
+            "shodan_api": {
+                "__type__": "text",
+                "label_desc": "shodan_api",
+                "placeholder": "shodan_api",
+                "value": null
+            },
             "__pool_it_searchFromConfig__": {
                 "__type__": "checkbox",
                 "label_desc": "Pool the execution to the pool list",
@@ -122,12 +154,6 @@
             "__function__": "setApi",
             "__async__": false,
             "__return__": "",
-            "shodanKeyString": {
-                "__type__": "text",
-                "label_desc": "shodanKeyString",
-                "placeholder": "shodanKeyString",
-                "value": null
-            },
             "__pool_it_setApi__": {
                 "__type__": "checkbox",
                 "label_desc": "Pool the execution to the pool list",

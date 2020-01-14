@@ -1,5 +1,4 @@
 from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
 import os
 from requests import Response
 
@@ -10,7 +9,6 @@ from core.views import ht, config, renderMainPanel, saveFileOutput, Logger, send
 
 # ht_crypter
 
-@csrf_exempt
 def crypt_file(request):
     this_conf = config['ht_crypter_crypt_file']
     if len(request.FILES) != 0:
@@ -60,7 +58,7 @@ def crypt_file(request):
             is_last = False
             if iterate_count == 1:
                 is_last = True
-
+            
             crypted_file = crypter.crypt_file(filename=uploaded_file_url, new_file_name=new_file_name, drop_file_name=drop_file_name, prime_length=prime_length, iterate_count=iterate_count, is_last=is_last, compile_exe=compile_exe)
 
             if crypted_file:
@@ -80,7 +78,6 @@ def crypt_file(request):
     return renderMainPanel(request=request)
 
 # Automatic view function for convertToExe
-@csrf_exempt
 def convertToExe(request):
 	# Init of the view convertToExe
 	try:
@@ -89,7 +86,7 @@ def convertToExe(request):
 		if response or repool:
 			if repool:
 				return HttpResponse(response)
-			return renderMainPanel(request=request, popup_text=response.text)
+			return JsonResponse({ "data" : str(response) })
 		else:
 			# Parameter stub_name
 			stub_name = request.POST.get('stub_name')
@@ -102,7 +99,6 @@ def convertToExe(request):
 		return renderMainPanel(request=request, popup_text=str(e))
 	
 # Automatic view function for createStub
-@csrf_exempt
 def createStub(request):
 	# Init of the view createStub
 	try:
@@ -111,7 +107,7 @@ def createStub(request):
 		if response or repool:
 			if repool:
 				return HttpResponse(response)
-			return renderMainPanel(request=request, popup_text=response.text)
+			return JsonResponse({ "data" : str(response) })
 		else:
 			# Parameter crypto_data_hex
 			crypto_data_hex = request.POST.get('crypto_data_hex')
@@ -122,7 +118,6 @@ def createStub(request):
 			try:
 				# Save file drop_file_name
 				filename_drop_file_name, location_drop_file_name, drop_file_name = saveFileOutput(request.FILES['drop_file_name'], 'crypter', 'av_evasion')
-
 			except Exception as e:
 				# If not param drop_file_name
 				if request.POST.get('is_async_createStub', False):
@@ -155,4 +150,3 @@ def createStub(request):
 		if request.POST.get('is_async_createStub', False):
 			return JsonResponse({ "data" : str(e) })
 		return renderMainPanel(request=request, popup_text=str(e))
-	

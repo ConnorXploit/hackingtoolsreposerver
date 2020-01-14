@@ -1,2 +1,2 @@
 flask
-hackingtools==1.0.8
+hackingtools==2.5.1
