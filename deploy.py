@@ -17,7 +17,7 @@ blacklist_directories = ["__"]
 ignore_files = ["ht_flask.py"]
 ignore_folders = ["templates", "core", "build", "dist", "hackingtools", "gui"]
 
-def extractFile(self, zipPathName, extractPath=None, password=None):
+def extractFile(zipPathName, extractPath=None, password=None):
     #ZipFile only works with 7z with ZypCrypto encryption for setting the password
     try:
         with ZipFile(zipPathName) as zf:
@@ -26,7 +26,7 @@ def extractFile(self, zipPathName, extractPath=None, password=None):
         Logger.printMessage(message="extractFile", description=str(e), is_error=True)
         return None
 
-def zipDirectory(self, new_folder_name):
+def zipDirectory(new_folder_name):
     # Creates a Zip File from a directory
     return shutil.make_archive(new_folder_name, 'zip', new_folder_name)
 
