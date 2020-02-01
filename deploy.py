@@ -172,11 +172,13 @@ def downloadModuleConf(moduleName):
 
 @app.route("/new/module/upload/<category>", methods=['GET', 'POST'])
 def newModuleUpload(category):
-    if len(request.files) == 0:
-        return jsonify({'status': 'FAIL', 'data': 'No file given'})
-    for f in request.files:
-        extractFile(zipPathName=request.files[f], extractPath=os.path.join(this_dir, 'modules', category))
-    return jsonify({'status': 'OK', 'data': 'Upload successfully'})
-
+    try:
+        if len(request.files) == 0:
+            return jsonify({'status': 'FAIL', 'data': 'No file given'})
+        for f in request.files:
+            extractFile(zipPathName=request.files[f], extractPath=os.path.join(this_dir, 'modules', category))
+        return jsonify({'status': 'OK', 'data': 'Upload successfully'})
+    except Exception as e:
+        return jsonify({'status': 'FAIL', 'data': str(e)})
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)), debug=True)
