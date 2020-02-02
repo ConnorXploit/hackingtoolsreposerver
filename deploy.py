@@ -176,8 +176,10 @@ def newModuleUpload(category):
         if len(request.files) == 0:
             return jsonify({'status': 'FAIL', 'data': 'No file given'})
         for f in request.files:
-            extracted_here = extractFile(zipPathName=request.files[f], extractPath=os.path.join(this_dir, 'modules', category))
-        return jsonify({'status': 'OK', 'data': extracted_here})
+            moduleName = request.files[f].name
+            print(f, moduleName)
+            extractFile(zipPathName=request.files[f], extractPath=os.path.join(this_dir, 'modules', category, moduleName))
+        return jsonify({'status': 'OK', 'data': listdir(os.path.join(this_dir, 'modules', category))})
     except Exception as e:
         return jsonify({'status': 'FAIL', 'data': str(e)})
 if __name__ == "__main__":
