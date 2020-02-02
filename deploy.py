@@ -23,8 +23,7 @@ def extractFile(zipPathName, extractPath=None, password=None):
         with ZipFile(zipPathName) as zf:
             return zf.extractall(password) if password else zf.extractall(extractPath) if extractPath else zf.extractFile()
     except Exception as e:
-        Logger.printMessage(message="extractFile", description=str(e), is_error=True)
-        return None
+        return str(e)
 
 def zipDirectory(new_folder_name):
     # Creates a Zip File from a directory
